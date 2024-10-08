@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Principios Básicos de Latex</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/moon.css" />
+    <link rel="stylesheet" href="dist/reveal-print.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+
+    <!-- Dim style -->
+    <style>
+      /* Custom styles for dimming fragments */
+      .fragment.dim {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .fragment.dim.visible {
+        opacity: 0.75; /* Adjust the opacity to the level of dimming you prefer */
+      }
+    </style>
+
+    <!-- Custom CSS for side-by-side layout -->
+    <style>
+      .side-by-side {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .code-block {
+        width: 60%;
+      }
+      .image-block {
+        width: 35%; /* Adjust to make the columns fit as desired */
+      }
+
+      .image-block img {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Title -->
+        <section>
+          <h2>Principios Básicos de LaTeX</h2>
+          <br />
+          <p><small> Guillermo Ibarra | 2024.10.08</small></p>
+        </section>
+
+        <!-- Slide -->
+        <section><h2 style="text-transform: none">¿Por qué?</h2></section>
+
+        <!-- Slide -->
+        <section>
+          <h3
+            style="
+              margin-bottom: 50px;
+              justify-content: left;
+              text-transform: none;
+            "
+          >
+            Conceptos Fundamentales
+          </h3>
+          <ul>
+            <li class="fragment dim">wysiwyg</li>
+            <li class="fragment dim">compilador + bibliotecas</li>
+            <ul>
+              <li class="fragment dim">pdflatex</li>
+              <li class="fragment dim">xelatex</li>
+              <li class="fragment dim">lualatex</li>
+            </ul>
+            <li class="fragment dim">editor</li>
+            <ul>
+              <li class="fragment dim">texmaker</li>
+              <li class="fragment dim">nvim</li>
+              <li class="fragment dim">vscode</li>
+            </ul>
+          </ul>
+        </section>
+
+        <!-- Slide -->
+        <section data-auto-animate>
+          <h2 style="text-transform: none">Estructure de un Archivo .tex</h2>
+          <pre><code class="language-latex" data-trim data-line-numbers="1-6|7-17">
+\documentclass[12pt]{article}
+\usepackage{amsmath}      % mejor formato de ecuaciones
+\usepackage{graphicx}     % para imagenes
+\usepackage[spanish]{babel}  % Para cambiar el idioma a español
+\usepackage[utf8]{inputenc}  % Para permitir caracteres acentuados
+
+% El documento empieza aquí
+\begin{document}
+
+\title{Mi Primer Documento en LaTeX}
+\author{Tu Nombre}
+\date{\today}
+\maketitle
+
+\section{Introducción}
+Esta es la introducción, donde puedes explicar el propósito del documento.
+\end{document}
+            </code></pre>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2 style="text-transform: none">Informe Final</h2>
+          <pre><code class="language-latex" data-trim data-line-numbers>
+\documentclass[12pt, letterpaper, oneside]{report}
+
+\usepackage{ininStyle}
+
+\begin{document}
+
+\pagestyle{main}
+\include{A.Front/cover}
+\include{B.Main/chapter1}
+
+\end{document}
+          </code></pre>
+        </section>
+
+        <!-- Figures -->
+        <section data-auto-animate>
+          <h2 style="text-transform: none">Imágenes</h2>
+          <pre><code class="language-latex" data-trim data-line-numbers="1|3-6|8-13|15-17">
+            \includegraphics[width=5cm, height=4cm]{img}
+
+            \begin{figure}[h]
+              \centering
+              \includegraphics[width=8cm]{Plot}
+            \end{figure}
+
+            \begin{figure}[h]
+              \centering
+              \includegraphics[width=0.25\textwidth]{mesh}
+              \caption[título del ToC]{Título en la Figura}
+              \label{fig:mesh1}
+            \end{figure}
+
+            % Al inicio del documento
+            \listoffigures
+          </code></pre>
+        </section>
+
+        <!-- Tables -->
+        <section>
+          <h2 style="text-transform: none">Tablas</h2>
+          <div class="side-by-side">
+            <!-- Code Block-->
+            <div class="code-block">
+              <pre><code class="language-latex" data-trim data-line-numbers>
+              \usepackage{booktabs}
+
+              \begin{table}[h]
+              \centering
+              \begin{tabular}{llr}
+              \toprule
+              \multicolumn{2}{c}{Item} \\
+              \cmidrule(r){1-2}
+              Animal    & Description & Price (\$) \\
+              \midrule
+              Gnu       & stuffed     & 92.50 \\
+              Emu       & stuffed     & 33.33 \\
+              Armadillo & frozen      & 8.99  \\
+              \bottomrule
+              \end{tabular}
+              \caption{Prices of different animals and their descriptions}
+              \label{tab:animal-prices}
+              \end{table}
+            </code></pre>
+            </div>
+
+            <!-- Image Block -->
+            <div class="image-block">
+              <img src="imgs/table.png" alt="Example Image" />
+            </div>
+          </div>
+        </section>
+
+        <!-- References -->
+        <section>
+          <h2 style="text-transform: none">Referencias</h2>
+          <pre><code class="language-latex" data-trim data-line-numbers="1-10|13-18|19-21">
+% referencias.bib 
+@article{li2020improvements,
+  title={Improvements of subgroup method based on fine group slowing-down calculation for resonance self-shielding treatment},
+  author={Li, Song and Zhang, Zhijian and Zhang, Qian and Zhao, Qiang},
+  journal={Annals of Nuclear Energy},
+  volume={136},
+  pages={106992},
+  year={2020},
+  publisher={Elsevier}
+}
+
+% main.tex
+The fime-mesh subgroup method (FSM) \cite{li2020improvements} benchmarks with the following:
+\begin{itemize}
+  \item UO$_2$ pin (Yamamoto et. al., 2002)
+  \item MOX pin (Yamamoto et. al., 2002)
+  \item 3x3 lattice cell
+\end{itemize}
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+          </code></pre>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+
+        // Enable PDF export
+        pdfSeparateFragments: false,
+        pdfMaxPagesPerSlide: 1,
+        pdf: {
+          width: 210, // A4 width in mm (default is 210)
+          height: 297, // A4 height in mm (default is 297)
+        },
+      });
+    </script>
+  </body>
+</html>
